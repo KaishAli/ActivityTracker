@@ -5,7 +5,6 @@ import Dashboard from "./pages/Dashboard";
 import Repos from "./pages/Repos";
 import Activity from "./pages/Activity";
 import DashboardLayout from "./component/DashboardLayout";
-import Footer from "./component/Footer";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
