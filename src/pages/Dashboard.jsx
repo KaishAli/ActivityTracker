@@ -3,7 +3,7 @@ import { getUserEvents } from "../services/githubApi";
 import LanguageChart from "../component/LanguageChart";
 import { getRepoStats } from "../utils/productivity";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
     Box,
     Typography,
@@ -29,28 +29,25 @@ const Dashboard = () => {
     const [error, setError] = useState("");
     const stats = repos.length ? getRepoStats(repos) : null;
     const [events, setEvents] = useState([]);
-   const fetchGitHubData = useCallback(async () => {
-  try {
-    setLoading(true);
-    setError("");
 
-    const userData = await getUserProfile(username);
-    const repoData = await getUserRepos(username);
-    const eventData = await getUserEvents(username);
+    const fetchGitHubData = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError("");
 
-    setProfile(userData);
-    setRepos(repoData);
-    setEvents(eventData);
-  } catch (err) {
-    setError("Failed to load GitHub data");
-  } finally {
-    setLoading(false);
-  }
-}, [username]);
+            const userData = await getUserProfile(username);
+            const repoData = await getUserRepos(username);
+            const eventData = await getUserEvents(username);
 
-   useEffect(() => {
-  fetchGitHubData();
-}, [fetchGitHubData]);
+            setProfile(userData);
+            setRepos(repoData);
+            setEvents(eventData);
+        } catch (err) {
+            setError("Failed to load GitHub data");
+        } finally {
+            setLoading(false);
+        }
+    }, [username]);
 
 
     return (
